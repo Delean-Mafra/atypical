@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Atypical Personalizados - Tabela de Preços</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #000;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            overflow: hidden;
+            position: relative;
+            color: #fff;
+        }
+
+        .container {
+            text-align: center;
+        }
+
+        header {
+            margin-bottom: 20px;
+        }
+
+        .logo {
+            width: 150px;
+        }
+
+        h1 {
+            font-size: 2em;
+            color: #1e90ff;
+        }
+
+        table {
+            width: 100%;
+            max-width: 600px;
+            margin: 0 auto;
+            border-collapse: collapse;
+            box-shadow: 0 0 10px rgba(255, 255, 255, 0.1);
+        }
+
+        th, td {
+            padding: 10px;
+            border: 1px solid #ddd;
+        }
+
+        th {
+            background-color: #1e90ff;
+            color: white;
+        }
+
+        td {
+            background-color: #333;
+        }
+
+        tr:nth-child(even) td {
+            background-color: #444;
+        }
+
+        @keyframes twinkling {
+            0% { opacity: 0.2; }
+            50% { opacity: 1; }
+            100% { opacity: 0.2; }
+        }
+
+        .star {
+            position: absolute;
+            width: 2px;
+            height: 2px;
+            background: white;
+            border-radius: 50%;
+            box-shadow: 0 0 10px white;
+            animation: twinkling 2s infinite ease-in-out;
+        }
+
+        .instagram-link {
+            margin-top: 20px;
+        }
+
+        .instagram-link img {
+            width: 50px;
+            height: 50px;
+        }
+
+        .instagram-link a {
+            display: inline-block;
+            text-decoration: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <img src="Atypical.png" alt="Atypical Personalizados" class="logo">
+            <h1>Atypical Personalizados - Tabela de Preços</h1>
+        </header>
+        <main>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Produto</th>
+                        <th>Preço</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Kit de dedoche</td>
+                        <td>R$25,00</td>
+                    </tr>
+                    <tr>
+                        <td>Fantoche sem enchimento</td>
+                        <td>R$12,00</td>
+                    </tr>
+                    <tr>
+                        <td>Bonecos 30 centimetros com enchimento</td>
+                        <td>R$15,00</td>
+                    </tr>
+                    <tr>
+                        <td>Livro de histórias</td>
+                        <td>R$50,00</td>
+                    </tr>
+                    <tr>
+                        <td>Livro sensorial</td>
+                        <td>R$50,00</td>
+                    </tr>
+                </tbody>
+            </table>
+            <div class="instagram-link">
+                <a href="https://www.instagram.com/atypical_personalizados_/?utm_source=qr&igsh=MXJuMXp2Y3FpNHcwNQ%3D%3D#" target="_blank">
+                    <img src="instagram.png" alt="Instagram">
+                </a>
+            </div>
+        </main>
+    </div>
+    <script>
+        function generateStars() {
+            const starCount = 100;
+            const container = document.querySelector('body');
+
+            for (let i = 0; i < starCount; i++) {
+                const star = document.createElement('div');
+                star.className = 'star';
+                star.style.top = `${Math.random() * 100}vh`;
+                star.style.left = `${Math.random() * 100}vw`;
+                star.style.animationDuration = `${Math.random() * 3 + 2}s`;
+                container.appendChild(star);
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', generateStars);
+    </script>
+</body>
+</html>
