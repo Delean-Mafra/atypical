@@ -91,6 +91,44 @@
             display: inline-block;
             text-decoration: none;
         }
+
+        .puzzle-piece {
+            position: absolute;
+            width: 100px;
+            height: 100px;
+            opacity: 0.7;
+            background: none;
+            animation: floatPiece 10s infinite;
+        }
+
+        .piece1 {
+            top: 10%;
+            left: 10%;
+            animation-delay: 0s;
+        }
+
+        .piece2 {
+            top: 10%;
+            right: 10%;
+            animation-delay: 2.5s;
+        }
+
+        .piece3 {
+            bottom: 10%;
+            right: 10%;
+            animation-delay: 5s;
+        }
+
+        .piece4 {
+            bottom: 10%;
+            left: 10%;
+            animation-delay: 7.5s;
+        }
+
+        @keyframes floatPiece {
+            0%, 100% { transform: translate(0, 0); }
+            50% { transform: translate(10px, -10px); }
+        }
     </style>
 </head>
 <body>
@@ -109,7 +147,7 @@
                 </thead>
                 <tbody>
                     <tr>
-                        <td>Kit de dedoche</td>
+                        <td>Quite de dedoche</td>
                         <td>R$25,00</td>
                     </tr>
                     <tr>
@@ -137,6 +175,10 @@
             </div>
         </main>
     </div>
+    <img src="aust.png" alt="Peça de Quebra-cabeça" class="puzzle-piece piece1">
+    <img src="aust.png" alt="Peça de Quebra-cabeça" class="puzzle-piece piece2">
+    <img src="aust.png" alt="Peça de Quebra-cabeça" class="puzzle-piece piece3">
+    <img src="aust.png" alt="Peça de Quebra-cabeça" class="puzzle-piece piece4">
     <script>
         function generateStars() {
             const starCount = 100;
