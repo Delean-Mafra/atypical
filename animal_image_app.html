@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Animal Image App</title>
+    <style>
+        body {
+            background-color: white;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        #image-container {
+            position: relative;
+            width: 400px;
+            height: 400px;
+        }
+        .animal-image {
+            position: absolute;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <div id="image-container">
+        <img src="templates/vaquinha.png" class="animal-image" alt="Vaquinha" data-audio="templates/vaquinha.mp3">
+        <img src="templates/cachorrinho.png" class="animal-image" alt="Cachorrinho" data-audio="templates/cachorrinho.mp3" style="display: none;">
+        <img src="templates/gatinho.png" class="animal-image" alt="Gatinho" data-audio="templates/gatinho.mp3" style="display: none;">
+        <img src="templates/galinha.png" class="animal-image" alt="Galinha" data-audio="templates/galinha.mp3" style="display: none;">
+        <img src="templates/cavalinho.png" class="animal-image" alt="Cavalinho" data-audio="templates/cavalinho.mp3" style="display: none;">
+    </div>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const images = document.querySelectorAll('.animal-image');
+            let currentImageIndex = 0;
+
+            images[currentImageIndex].style.display = 'block';
+
+            images.forEach(image => {
+                image.addEventListener('click', () => {
+                    if (image.dataset.audio) {
+                        new Audio(image.dataset.audio).play();
+                    }
+                    images[currentImageIndex].style.display = 'none';
+                    currentImageIndex = (currentImageIndex + 1) % images.length;
+                    images[currentImageIndex].style.display = 'block';
+                    moveImage(images[currentImageIndex]);
+                });
+            });
+
+            function moveImage(image) {
+                const container = document.getElementById('image-container');
+                const maxX = container.clientWidth - image.clientWidth;
+                const maxY = container.clientHeight - image.clientHeight;
+                const randomX = Math.floor(Math.random() * maxX);
+                const randomY = Math.floor(Math.random() * maxY);
+                image.style.left = `${randomX}px`;
+                image.style.top = `${randomY}px`;
+            }
+
+            moveImage(images[currentImageIndex]);
+        });
+    </script>
+</body>
+</html>
