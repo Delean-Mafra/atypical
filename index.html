@@ -4,197 +4,351 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Atypical Personalizados - Tabela de Preços</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #000;
-            margin: 0;
-            padding: 0;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            overflow: hidden;
+        @keyframes rainbow {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .rainbow-bg {
+            background: linear-gradient(45deg, #ff0000, #ff8000, #ffff00, #80ff00, #00ff80, #00ffff, #0080ff, #8000ff, #ff00ff, #ff0080);
+            background-size: 1000% 1000%;
+            animation: rainbow 15s ease infinite;
+        }
+
+        .neurodivergent-pattern {
+            background-image: 
+                radial-gradient(circle at 10% 20%, rgba(255,255,255,0.1) 0%, transparent 20%),
+                radial-gradient(circle at 90% 80%, rgba(255,255,255,0.1) 0%, transparent 20%),
+                repeating-linear-gradient(45deg, rgba(255,255,255,0.05) 0px, rgba(255,255,255,0.05) 1px, transparent 1px, transparent 5px),
+                repeating-linear-gradient(-45deg, rgba(255,255,255,0.05) 0px, rgba(255,255,255,0.05) 1px, transparent 1px, transparent 5px);
+        }
+
+        .autism-ribbon {
             position: relative;
-            color: #fff;
-        }
-
-        .container {
-            text-align: center;
-        }
-
-        header {
-            margin-bottom: 20px;
-        }
-
-        .logo {
-            width: 150px;
-        }
-
-        h1 {
-            font-size: 2em;
-            color: #1e90ff;
-        }
-
-        table {
+            height: 30px;
             width: 100%;
-            max-width: 600px;
-            margin: 0 auto;
-            border-collapse: collapse;
-            box-shadow: 0 0 10px rgba(255, 255, 255, 0.1);
-        }
-
-        th, td {
-            padding: 10px;
-            border: 1px solid #ddd;
-        }
-
-        th {
-            background-color: #1e90ff;
-            color: white;
-        }
-
-        td {
-            background-color: #333;
-        }
-
-        tr:nth-child(even) td {
-            background-color: #444;
-        }
-
-        @keyframes twinkling {
-            0% { opacity: 0.2; }
-            50% { opacity: 1; }
-            100% { opacity: 0.2; }
-        }
-
-        .star {
-            position: absolute;
-            width: 2px;
-            height: 2px;
-            background: white;
-            border-radius: 50%;
-            box-shadow: 0 0 10px white;
-            animation: twinkling 2s infinite ease-in-out;
-        }
-
-        .instagram-link {
-            margin-top: 20px;
-        }
-
-        .instagram-link img {
-            width: 50px;
-            height: 50px;
-        }
-
-        .instagram-link a {
-            display: inline-block;
-            text-decoration: none;
+            background: linear-gradient(90deg, 
+                #ff0000 0%, #ff0000 25%, 
+                #ffff00 25%, #ffff00 50%, 
+                #00ff00 50%, #00ff00 75%, 
+                #0000ff 75%, #0000ff 100%);
         }
 
         .puzzle-piece {
+            animation: float 3s ease-in-out infinite;
+        }
+
+        .price-card {
+            transition: all 0.3s ease;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+
+        .price-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+        }
+
+        .price-card-header {
+            position: relative;
+            overflow: hidden;
+        }
+
+        .price-card-header::after {
+            content: "";
             position: absolute;
-            width: 100px;
-            height: 100px;
-            opacity: 0.7;
-            background: none;
-            animation: floatPiece 10s infinite;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(45deg, rgba(255,255,255,0.1) 0%, transparent 100%);
         }
 
-        .piece1 {
-            top: 10%;
-            left: 10%;
-            animation-delay: 0s;
+        .sensory-circle {
+            position: absolute;
+            border-radius: 50%;
+            opacity: 0.1;
+            filter: blur(10px);
+            animation: spin 60s linear infinite;
         }
 
-        .piece2 {
-            top: 10%;
-            right: 10%;
-            animation-delay: 2.5s;
+        .sensory-circle:nth-child(1) {
+            width: 150px;
+            height: 150px;
+            background: #ff0000;
+            top: -50px;
+            left: -50px;
         }
 
-        .piece3 {
-            bottom: 10%;
-            right: 10%;
-            animation-delay: 5s;
+        .sensory-circle:nth-child(2) {
+            width: 200px;
+            height: 200px;
+            background: #00ff00;
+            bottom: -50px;
+            right: -50px;
+            animation-direction: reverse;
         }
 
-        .piece4 {
-            bottom: 10%;
-            left: 10%;
-            animation-delay: 7.5s;
+        .infinity-symbol {
+            position: relative;
+            width: 60px;
+            height: 30px;
         }
 
-        @keyframes floatPiece {
-            0%, 100% { transform: translate(0, 0); }
-            50% { transform: translate(10px, -10px); }
+        .infinity-symbol::before,
+        .infinity-symbol::after {
+            content: "";
+            position: absolute;
+            width: 30px;
+            height: 30px;
+            border: 4px solid;
+            border-color: transparent #ff0000 #ff0000 transparent;
+            border-radius: 50%;
+            animation: spin 4s linear infinite;
+        }
+
+        .infinity-symbol::before {
+            left: 0;
+            transform: rotate(45deg);
+        }
+
+        .infinity-symbol::after {
+            right: 0;
+            transform: rotate(-135deg);
+            animation-delay: 0.5s;
         }
     </style>
 </head>
-<body>
-    <div class="container">
-        <header>
-            <img src="Atypical.png" alt="Atypical Personalizados" class="logo">
-            <h1>Atypical Personalizados - Tabela de Preços</h1>
-        </header>
-        <main>
-            <table>
-                <thead>
-                    <tr>
-                        <th>Produto</th>
-                        <th>Preço</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>Kit de dedoche</td>
-                        <td>R$25,00</td>
-                    </tr>
-                    <tr>
-                        <td>Fantoche sem enchimento</td>
-                        <td>R$12,00</td>
-                    </tr>
-                    <tr>
-                        <td>Bonecos 30 centimetros com enchimento</td>
-                        <td>R$15,00</td>
-                    </tr>
-                    <tr>
-                        <td>Livro de histórias</td>
-                        <td>R$50,00</td>
-                    </tr>
-                    <tr>
-                        <td>Livro sensorial</td>
-                        <td>R$50,00</td>
-                    </tr>
-                </tbody>
-            </table>
-            <div class="instagram-link">
-                <a href="https://www.instagram.com/atypical_personalizados_/?utm_source=qr&igsh=MXJuMXp2Y3FpNHcwNQ%3D%3D#" target="_blank">
-                    <img src="instagram.png" alt="Instagram">
-                </a>
+<body class="bg-gray-900 text-white min-h-screen flex flex-col items-center py-8 px-4 neurodivergent-pattern">
+    <!-- Autism Awareness Ribbon -->
+    <div class="autism-ribbon mb-8"></div>
+
+    <!-- Header -->
+    <header class="text-center mb-8 relative">
+        <div class="flex justify-center mb-4">
+            <div class="relative">
+                <img src="Atypical.png" alt="Atypical Personalizados" class="w-40 h-40 object-contain puzzle-piece">
+                <div class="absolute -top-2 -right-2">
+                    <div class="infinity-symbol"></div>
+                </div>
             </div>
-        </main>
+        </div>
+        <h1 class="text-3xl md:text-4xl font-bold mb-2 rainbow-text bg-clip-text text-transparent bg-gradient-to-r from-red-500 via-yellow-500 to-blue-500">
+            Atypical Personalizados
+        </h1>
+        <p class="text-lg text-gray-300">Produtos sensoriais e educacionais</p>
+    </header>
+
+    <!-- Main Content -->
+    <main class="w-full max-w-4xl">
+        <h2 class="text-2xl font-bold mb-6 text-center rainbow-text">Nossos Produtos</h2>
+        
+        <!-- Price Cards Grid -->
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-12">
+            <!-- Kit de dedoche -->
+            <div class="price-card bg-gray-800">
+                <div class="price-card-header rainbow-bg h-3"></div>
+                <div class="p-6 relative overflow-hidden">
+                    <div class="sensory-circle"></div>
+                    <div class="sensory-circle"></div>
+                    <div class="relative z-10">
+                        <h3 class="text-xl font-bold mb-2">Kit de Dedoche</h3>
+                        <p class="text-gray-300 mb-4">Conjunto completo para estimulação tátil</p>
+                        <div class="flex items-center justify-between">
+                            <span class="text-2xl font-bold rainbow-text">R$25,00</span>
+                            <div class="w-10 h-10 rounded-full rainbow-bg flex items-center justify-center">
+                                <i class="fas fa-hand-holding-heart text-white"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Fantoche sem enchimento -->
+            <div class="price-card bg-gray-800">
+                <div class="price-card-header rainbow-bg h-3"></div>
+                <div class="p-6 relative overflow-hidden">
+                    <div class="sensory-circle"></div>
+                    <div class="sensory-circle"></div>
+                    <div class="relative z-10">
+                        <h3 class="text-xl font-bold mb-2">Fantoche Simples</h3>
+                        <p class="text-gray-300 mb-4">Sem enchimento para personalização</p>
+                        <div class="flex items-center justify-between">
+                            <span class="text-2xl font-bold rainbow-text">R$12,00</span>
+                            <div class="w-10 h-10 rounded-full rainbow-bg flex items-center justify-center">
+                                <i class="fas fa-hand-paper text-white"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Bonecos 30cm -->
+            <div class="price-card bg-gray-800">
+                <div class="price-card-header rainbow-bg h-3"></div>
+                <div class="p-6 relative overflow-hidden">
+                    <div class="sensory-circle"></div>
+                    <div class="sensory-circle"></div>
+                    <div class="relative z-10">
+                        <h3 class="text-xl font-bold mb-2">Bonecos 30cm</h3>
+                        <p class="text-gray-300 mb-4">Com enchimento para conforto</p>
+                        <div class="flex items-center justify-between">
+                            <span class="text-2xl font-bold rainbow-text">R$15,00</span>
+                            <div class="w-10 h-10 rounded-full rainbow-bg flex items-center justify-center">
+                                <i class="fas fa-child text-white"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Livro de histórias -->
+            <div class="price-card bg-gray-800">
+                <div class="price-card-header rainbow-bg h-3"></div>
+                <div class="p-6 relative overflow-hidden">
+                    <div class="sensory-circle"></div>
+                    <div class="sensory-circle"></div>
+                    <div class="relative z-10">
+                        <h3 class="text-xl font-bold mb-2">Livro de Histórias</h3>
+                        <p class="text-gray-300 mb-4">Narrativas inclusivas e educativas</p>
+                        <div class="flex items-center justify-between">
+                            <span class="text-2xl font-bold rainbow-text">R$50,00</span>
+                            <div class="w-10 h-10 rounded-full rainbow-bg flex items-center justify-center">
+                                <i class="fas fa-book-open text-white"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Livro sensorial -->
+            <div class="price-card bg-gray-800">
+                <div class="price-card-header rainbow-bg h-3"></div>
+                <div class="p-6 relative overflow-hidden">
+                    <div class="sensory-circle"></div>
+                    <div class="sensory-circle"></div>
+                    <div class="relative z-10">
+                        <h3 class="text-xl font-bold mb-2">Livro Sensorial</h3>
+                        <p class="text-gray-300 mb-4">Experiências multissensoriais</p>
+                        <div class="flex items-center justify-between">
+                            <span class="text-2xl font-bold rainbow-text">R$50,00</span>
+                            <div class="w-10 h-10 rounded-full rainbow-bg flex items-center justify-center">
+                                <i class="fas fa-hands text-white"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Custom Product -->
+            <div class="price-card bg-gray-800">
+                <div class="price-card-header rainbow-bg h-3"></div>
+                <div class="p-6 relative overflow-hidden">
+                    <div class="sensory-circle"></div>
+                    <div class="sensory-circle"></div>
+                    <div class="relative z-10">
+                        <h3 class="text-xl font-bold mb-2">Produto Personalizado</h3>
+                        <p class="text-gray-300 mb-4">Criado especialmente para você</p>
+                        <div class="flex items-center justify-between">
+                            <span class="text-2xl font-bold rainbow-text">Sob consulta</span>
+                            <div class="w-10 h-10 rounded-full rainbow-bg flex items-center justify-center">
+                                <i class="fas fa-star text-white"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Instagram Link -->
+        <div class="text-center mb-8">
+            <p class="text-gray-300 mb-4">Siga-nos no Instagram para mais novidades</p>
+            <a href="https://www.instagram.com/atypical_personalizados_/?utm_source=qr&igsh=MXJuMXp2Y3FpNHcwNQ%3D%3D#" 
+               target="_blank" 
+               class="inline-block bg-gradient-to-r from-purple-500 via-pink-500 to-red-500 rounded-full p-4 hover:scale-110 transition-transform duration-300">
+                <i class="fab fa-instagram text-white text-3xl"></i>
+            </a>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="text-center text-gray-500 text-sm mt-auto py-4">
+        <p>Atypical Personalizados - Produtos inclusivos e sensoriais</p>
+        <p class="mt-1">© 2023 Todos os direitos reservados</p>
+    </footer>
+
+    <!-- Floating Puzzle Pieces -->
+    <div class="fixed top-1/4 left-10 opacity-30 puzzle-piece">
+        <svg width="60" height="60" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M12 6V12M12 12V18M12 12H18M12 12H6" stroke="#00FFFF" stroke-width="2" stroke-linecap="round"/>
+        </svg>
     </div>
-    <img src="aust.png" alt="Peça de Quebra-cabeça" class="puzzle-piece piece1">
-    <img src="aust.png" alt="Peça de Quebra-cabeça" class="puzzle-piece piece2">
-    <img src="aust.png" alt="Peça de Quebra-cabeça" class="puzzle-piece piece3">
-    <img src="aust.png" alt="Peça de Quebra-cabeça" class="puzzle-piece piece4">
+    <div class="fixed top-1/3 right-10 opacity-30 puzzle-piece" style="animation-delay: 1s;">
+        <svg width="60" height="60" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M12 6V12M12 12V18M12 12H18M12 12H6" stroke="#FF00FF" stroke-width="2" stroke-linecap="round"/>
+        </svg>
+    </div>
+    <div class="fixed bottom-1/4 left-20 opacity-30 puzzle-piece" style="animation-delay: 2s;">
+        <svg width="60" height="60" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M12 6V12M12 12V18M12 12H18M12 12H6" stroke="#FFFF00" stroke-width="2" stroke-linecap="round"/>
+        </svg>
+    </div>
+    <div class="fixed bottom-1/3 right-20 opacity-30 puzzle-piece" style="animation-delay: 3s;">
+        <svg width="60" height="60" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M12 6V12M12 12V18M12 12H18M12 12H6" stroke="#00FF00" stroke-width="2" stroke-linecap="round"/>
+        </svg>
+    </div>
+
     <script>
-        function generateStars() {
-            const starCount = 100;
-            const container = document.querySelector('body');
-
-            for (let i = 0; i < starCount; i++) {
-                const star = document.createElement('div');
-                star.className = 'star';
-                star.style.top = `${Math.random() * 100}vh`;
-                star.style.left = `${Math.random() * 100}vw`;
-                star.style.animationDuration = `${Math.random() * 3 + 2}s`;
-                container.appendChild(star);
-            }
-        }
-
-        document.addEventListener('DOMContentLoaded', generateStars);
+        // Create sensory circles dynamically
+        document.addEventListener('DOMContentLoaded', function() {
+            const cards = document.querySelectorAll('.price-card');
+            
+            cards.forEach(card => {
+                // Create multiple sensory circles for each card
+                for (let i = 0; i < 3; i++) {
+                    const circle = document.createElement('div');
+                    circle.className = 'sensory-circle';
+                    
+                    // Random properties
+                    const size = Math.random() * 100 + 50;
+                    const posX = Math.random() * 100;
+                    const posY = Math.random() * 100;
+                    const color = `hsl(${Math.random() * 360}, 100%, 50%)`;
+                    const duration = Math.random() * 60 + 30;
+                    const delay = Math.random() * 10;
+                    
+                    circle.style.width = `${size}px`;
+                    circle.style.height = `${size}px`;
+                    circle.style.left = `${posX}%`;
+                    circle.style.top = `${posY}%`;
+                    circle.style.background = color;
+                    circle.style.animationDuration = `${duration}s`;
+                    circle.style.animationDelay = `${delay}s`;
+                    
+                    if (i % 2 === 0) {
+                        circle.style.animationDirection = 'reverse';
+                    }
+                    
+                    card.querySelector('.price-card-header').appendChild(circle);
+                }
+            });
+        });
     </script>
 </body>
 </html>
