@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Google - melhor mãe do mundo</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        .google-blue { color: #4285F4; }
+        .google-red { color: #EA4335; }
+        .google-yellow { color: #FBBC05; }
+        .google-green { color: #34A853; }
+        .search-box {
+            box-shadow: 0 1px 6px rgba(32, 33, 36, 0.28);
+        }
+        .result-card {
+            max-width: 600px;
+        }
+        .result-card:hover {
+            box-shadow: 0 1px 6px rgba(32, 33, 36, 0.28);
+        }
+        .typing-effect {
+            border-right: 2px solid #000;
+            animation: blink 0.75s step-end infinite;
+        }
+        @keyframes blink {
+            from, to { border-color: transparent }
+            50% { border-color: #000; }
+        }
+        .search-icon {
+            color: #9AA0A6;
+        }
+    </style>
+</head>
+<body class="bg-gray-50 min-h-screen">
+    <div class="container mx-auto px-4">
+        <!-- Google Header -->
+        <header class="py-4 flex justify-between items-center">
+            <div class="flex items-center space-x-4">
+                <div class="text-2xl font-semibold">
+                    <span class="google-blue">G</span>
+                    <span class="google-red">o</span>
+                    <span class="google-yellow">o</span>
+                    <span class="google-blue">g</span>
+                    <span class="google-green">l</span>
+                    <span class="google-red">e</span>
+                </div>
+            </div>
+            <div class="flex items-center space-x-4">
+                <button class="p-2 text-gray-600 hover:bg-gray-100 rounded-full">
+                    <i class="fas fa-th"></i>
+                </button>
+                <button class="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600">
+                    Fazer login
+                </button>
+            </div>
+        </header>
+
+        <!-- Search Area -->
+        <div class="max-w-2xl mx-auto mt-8">
+            <div class="relative">
+                <div class="search-box rounded-full flex items-center px-6 py-3 bg-white">
+                    <div class="search-icon mr-4">
+                        <i class="fas fa-search"></i>
+                    </div>
+                    <div class="flex-1">
+                        <div id="typing-text" class="text-gray-800 font-medium text-lg typing-effect"></div>
+                    </div>
+                    <div class="ml-4 flex space-x-2">
+                        <button class="p-1 text-gray-500 hover:text-gray-700">
+                            <i class="fas fa-microphone"></i>
+                        </button>
+                        <button class="p-1 text-gray-500 hover:text-gray-700">
+                            <i class="fas fa-camera"></i>
+                        </button>
+                    </div>
+                </div>
+                <div class="absolute right-0 -bottom-16 flex space-x-2">
+                    <button class="px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600">
+                        Pesquisa Google
+                    </button>
+                    <button class="px-4 py-2 bg-gray-100 rounded-md hover:bg-gray-200">
+                        Estou com sorte
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Search Results -->
+        <div class="max-w-3xl mx-auto mt-32">
+            <div class="text-gray-500 mb-6">
+                Aproximadamente 1.000.000.000 resultados (0,39 segundos)
+            </div>
+
+            <!-- Result Card -->
+            <div class="result-card bg-white p-6 rounded-lg mb-6 transition-all duration-200">
+                <div class="flex items-center mb-2">
+                    <div class="w-4 h-4 rounded-full bg-green-500 mr-2"></div>
+                    <div class="text-sm text-gray-500">www.exemplo.com › melhor-mãe</div>
+                </div>
+                <h2 class="text-xl text-blue-600 font-medium mb-1 hover:underline">A Melhor Mãe do Mundo - Exemplo.com</h2>
+                <p class="text-gray-800 mb-2">Conheça a história da mulher mais incrível do mundo, aquela que merece todo o amor e reconhecimento por tudo que faz.</p>
+                <div class="mt-4">
+                    <img src="https://scontent.ffln1-1.fna.fbcdn.net/v/t39.30808-6/296853410_5331562936934937_5365901175742708215_n.jpg?_nc_cat=111&ccb=1-7&_nc_sid=6ee11a&_nc_ohc=vyPvsMUdHosQ7kNvwFKj3Jm&_nc_oc=AdkF_A3xJFRk9D_GO0iaf--XZ_QLizDxlIgtKiuB4XRC0HAhbL3k4V76Z1nNY0yo1f0&_nc_zt=23&_nc_ht=scontent.ffln1-1.fna&_nc_gid=Mq0CQbn9jBLrLN_SX4p2Eg&oh=00_AfJ-tvWxz5krDMyiPgTKmiZFslPAJ2BYjH9QyPwnQOkfuA&oe=68245489" 
+                         alt="Melhor mãe do mundo" 
+                         class="w-full h-auto rounded-lg border border-gray-200">
+                </div>
+                <div class="mt-3 text-sm text-gray-500">
+                    <span>10 de maio de 2023</span> · <span class="hover:underline">Imagem</span>
+                </div>
+            </div>
+
+            <!-- Related Searches -->
+            <div class="mt-8">
+                <h3 class="text-lg font-medium text-gray-800 mb-4">Pesquisas relacionadas</h3>
+                <div class="grid grid-cols-2 gap-4">
+                    <div class="flex items-center">
+                        <i class="fas fa-search text-gray-400 mr-2"></i>
+                        <a href="#" class="text-blue-600 hover:underline">frases para melhor mãe do mundo</a>
+                    </div>
+                    <div class="flex items-center">
+                        <i class="fas fa-search text-gray-400 mr-2"></i>
+                        <a href="#" class="text-blue-600 hover:underline">presente para a melhor mãe</a>
+                    </div>
+                    <div class="flex items-center">
+                        <i class="fas fa-search text-gray-400 mr-2"></i>
+                        <a href="#" class="text-blue-600 hover:underline">como agradecer a melhor mãe</a>
+                    </div>
+                    <div class="flex items-center">
+                        <i class="fas fa-search text-gray-400 mr-2"></i>
+                        <a href="#" class="text-blue-600 hover:underline">história da melhor mãe</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Pagination -->
+            <div class="flex justify-center mt-12 mb-16">
+                <div class="flex space-x-2">
+                    <div class="text-blue-600 font-medium">1</div>
+                    <div class="hover:underline">2</div>
+                    <div class="hover:underline">3</div>
+                    <div class="hover:underline">4</div>
+                    <div class="hover:underline">5</div>
+                    <div class="hover:underline">6</div>
+                    <div class="hover:underline">7</div>
+                    <div class="hover:underline">8</div>
+                    <div class="hover:underline">9</div>
+                    <div class="hover:underline">10</div>
+                    <div class="ml-4 hover:underline">Mais</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Typing effect for search query
+        const text = "melhor mãe do mundo";
+        const typingElement = document.getElementById('typing-text');
+        let i = 0;
+        
+        function typeWriter() {
+            if (i < text.length) {
+                typingElement.innerHTML += text.charAt(i);
+                i++;
+                setTimeout(typeWriter, 100);
+            } else {
+                typingElement.classList.remove('typing-effect');
+            }
+        }
+        
+        // Start typing after a short delay
+        setTimeout(() => {
+            typeWriter();
+            
+            // Simulate search results appearing after typing completes
+            setTimeout(() => {
+                document.querySelector('.result-card').classList.add('opacity-100');
+            }, text.length * 100 + 500);
+        }, 1000);
+    </script>
+</body>
+</html>
