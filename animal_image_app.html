@@ -1,67 +1,207 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Animal Image App</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Jogo dos Animais para Crianças</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        body {
-            background-color: white;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
+        html, body {
+            touch-action: manipulation;
+            overflow: hidden;
+            height: 100%;
             margin: 0;
+            padding: 0;
+            background-color: #f0f9ff;
         }
-        #image-container {
-            position: relative;
-            width: 400px;
-            height: 400px;
-        }
+        
         .animal-image {
             position: absolute;
             cursor: pointer;
+            transition: transform 0.2s;
+            max-width: 80%;
+            max-height: 80%;
         }
-    </style>
+        
+        .animal-image:active {
+            transform: scale(1.1);
+        }
+        
+        .celebration {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 100;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 5rem;
+            color: #fbbf24;
+            animation: pulse 1s infinite alternate;
+        }
+        
+        @keyframes pulse {
+            from { transform: scale(1); opacity: 1; }
+            to { transform: scale(1.2); opacity: 0.8; }
+        }
+        
+        .controls {
+            position: fixed;
+            bottom: 1rem;
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            z-index: 10;
+        }
+        
+        .control-btn {
+            background-color: #38bdf8;
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            font-size: 1.5rem;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            transition: all 0.2s;
+        }
+        
+        .control-btn:active {
+            transform: scale(0.9);
+            background-color: #0ea5e9;
+        }
+    </style>  
 </head>
-<body>
-    <div id="image-container">
-        <img src="templates/vaquinha.png" class="animal-image" alt="Vaquinha" data-audio="templates/vaquinha.mp3">
-        <img src="templates/cachorrinho.png" class="animal-image" alt="Cachorrinho" data-audio="templates/cachorrinho.mp3" style="display: none;">
-        <img src="templates/gatinho.png" class="animal-image" alt="Gatinho" data-audio="templates/gatinho.mp3" style="display: none;">
-        <img src="templates/galinha.png" class="animal-image" alt="Galinha" data-audio="templates/galinha.mp3" style="display: none;">
-        <img src="templates/cavalinho.png" class="animal-image" alt="Cavalinho" data-audio="templates/cavalinho.mp3" style="display: none;">
+<body class="flex justify-center items-center">
+    <div id="image-container" class="relative w-full h-full flex justify-center items-center">
+        <!-- Imagens dos animais -->
+        <img src="https://cdn-icons-png.flaticon.com/512/1998/1998610.png" class="animal-image" alt="Vaca" data-audio="https://www.soundjay.com/mezzo/sounds/cow-01.mp3" style="display: none;">
+        <img src="https://cdn-icons-png.flaticon.com/512/616/616408.png" class="animal-image" alt="Cachorro" data-audio="https://www.soundjay.com/mezzo/sounds/dog-01.mp3" style="display: none;">
+        <img src="https://cdn-icons-png.flaticon.com/512/220/220124.png" class="animal-image" alt="Gato" data-audio="https://www.soundjay.com/mezzo/sounds/cat-01.mp3" style="display: none;">
+        <img src="https://cdn-icons-png.flaticon.com/512/3069/3069172.png" class="animal-image" alt="Galinha" data-audio="https://www.soundjay.com/mezzo/sounds/chicken-01.mp3" style="display: none;">
+        <img src="https://cdn-icons-png.flaticon.com/512/3069/3069197.png" class="animal-image" alt="Cavalo" data-audio="https://www.soundjay.com/mezzo/sounds/horse-01.mp3" style="display: none;">
+        <img src="https://cdn-icons-png.flaticon.com/512/3069/3069243.png" class="animal-image" alt="Ovelha" data-audio="https://www.soundjay.com/mezzo/sounds/sheep-01.mp3" style="display: none;">
+        
+        <!-- Elemento de celebração (aparece quando clica) -->
+        <div id="celebration" class="celebration" style="display: none;">
+            <i class="fas fa-star"></i>
+        </div>
     </div>
+    
+    <!-- Controles na parte inferior -->
+    <div class="controls">
+        <button id="prev-btn" class="control-btn"><i class="fas fa-arrow-left"></i></button>
+        <button id="next-btn" class="control-btn"><i class="fas fa-arrow-right"></i></button>
+        <button id="sound-btn" class="control-btn"><i class="fas fa-volume-up"></i></button>
+    </div>
+    
     <script>
         document.addEventListener('DOMContentLoaded', () => {
+            // Desativa rolagem e zoom
+            document.addEventListener('touchmove', (e) => {
+                if (!e.target.classList.contains('scrollable')) {
+                    e.preventDefault();
+                }
+            }, { passive: false });
+            
             const images = document.querySelectorAll('.animal-image');
+            const celebration = document.getElementById('celebration');
+            const prevBtn = document.getElementById('prev-btn');
+            const nextBtn = document.getElementById('next-btn');
+            const soundBtn = document.getElementById('sound-btn');
+            
             let currentImageIndex = 0;
-
-            images[currentImageIndex].style.display = 'block';
-
+            let soundEnabled = true;
+            
+            // Mostra a primeira imagem
+            showCurrentImage();
+            
+            // Configura os eventos de clique nas imagens
             images.forEach(image => {
                 image.addEventListener('click', () => {
-                    if (image.dataset.audio) {
-                        new Audio(image.dataset.audio).play();
+                    if (soundEnabled && image.dataset.audio) {
+                        playSound(image.dataset.audio);
                     }
-                    images[currentImageIndex].style.display = 'none';
-                    currentImageIndex = (currentImageIndex + 1) % images.length;
-                    images[currentImageIndex].style.display = 'block';
-                    moveImage(images[currentImageIndex]);
+                    
+                    // Mostra efeito de celebração
+                    celebration.style.display = 'flex';
+                    setTimeout(() => {
+                        celebration.style.display = 'none';
+                    }, 1000);
+                    
+                    // Move para a próxima imagem após um pequeno delay
+                    setTimeout(() => {
+                        currentImageIndex = (currentImageIndex + 1) % images.length;
+                        showCurrentImage();
+                    }, 500);
                 });
             });
-
+            
+            // Botão anterior
+            prevBtn.addEventListener('click', () => {
+                currentImageIndex = (currentImageIndex - 1 + images.length) % images.length;
+                showCurrentImage();
+                if (soundEnabled) {
+                    playSound(images[currentImageIndex].dataset.audio);
+                }
+            });
+            
+            // Botão próximo
+            nextBtn.addEventListener('click', () => {
+                currentImageIndex = (currentImageIndex + 1) % images.length;
+                showCurrentImage();
+                if (soundEnabled) {
+                    playSound(images[currentImageIndex].dataset.audio);
+                }
+            });
+            
+            // Botão de som
+            soundBtn.addEventListener('click', () => {
+                soundEnabled = !soundEnabled;
+                soundBtn.innerHTML = soundEnabled ? '<i class="fas fa-volume-up"></i>' : '<i class="fas fa-volume-mute"></i>';
+            });
+            
+            function showCurrentImage() {
+                // Esconde todas as imagens
+                images.forEach(img => img.style.display = 'none');
+                
+                // Mostra a imagem atual
+                images[currentImageIndex].style.display = 'block';
+                
+                // Posiciona a imagem aleatoriamente
+                moveImage(images[currentImageIndex]);
+            }
+            
             function moveImage(image) {
                 const container = document.getElementById('image-container');
                 const maxX = container.clientWidth - image.clientWidth;
                 const maxY = container.clientHeight - image.clientHeight;
-                const randomX = Math.floor(Math.random() * maxX);
-                const randomY = Math.floor(Math.random() * maxY);
+                
+                // Garante que a imagem não fique muito perto das bordas
+                const randomX = Math.floor(Math.random() * (maxX * 0.8)) + (maxX * 0.1);
+                const randomY = Math.floor(Math.random() * (maxY * 0.8)) + (maxY * 0.1);
+                
                 image.style.left = `${randomX}px`;
                 image.style.top = `${randomY}px`;
             }
-
-            moveImage(images[currentImageIndex]);
+            
+            function playSound(soundUrl) {
+                const audio = new Audio(soundUrl);
+                audio.play().catch(e => console.log("Erro ao reproduzir som:", e));
+            }
+            
+            // Adiciona um pequeno delay antes de mostrar a primeira imagem para evitar flash
+            setTimeout(() => {
+                images[currentImageIndex].style.opacity = '1';
+            }, 100);
         });
     </script>
 </body>
